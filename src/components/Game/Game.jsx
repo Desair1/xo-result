@@ -5,8 +5,8 @@ import styles from "./Game.module.css";
 
 const Game = () => {
 	const [currentPlayer, setCurrentPlayer] = useState("X");
-	const [isGameEnded] = useState(false);
-	const [isDraw] = useState(false);
+	const [isGameEnded, setIsGameEnded] = useState(false);
+	const [isDraw, setIsDraw] = useState(false);
 	const [field, setField] = useState(["", "", "", "", "", "", "", "", ""]);
 
 	return (
