@@ -16,7 +16,12 @@ const Game = () => {
         isGameEnded={isGameEnded}
         isDraw={isDraw}
       />
-      <Field field={field} />
+      <Field
+        field={field}
+        setField={setField}
+        currentPlayer={currentPlayer}
+        setCurrentPlayer={setCurrentPlayer}
+      />
       <button>Начать сначала</button>
     </main>
   );
