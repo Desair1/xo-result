@@ -12,13 +12,23 @@ const FieldLayout = ({ field, setField, currentPlayer, setCurrentPlayer }) => {
     }
   };
 
-  const setCell = (cell, index) => {};
+  const setCell = (cell, index) => {
+    const newArray = field.map((elem, id) => {
+      return id === index ? cell : elem;
+    });
+    console.log(newArray);
+  };
 
   return (
     <>
       <div className={styles.board}>
         {field.map((cell, index) => (
-          <div className={styles.cell} data-index={index} key={index}>
+          <div
+            className={styles.cell}
+            data-index={index}
+            key={index}
+            onClick={() => setCell(cell, index)}
+          >
             {cell}
           </div>
         ))}
