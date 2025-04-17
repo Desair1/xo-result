@@ -9,6 +9,13 @@ const Game = () => {
   const [isDraw, setIsDraw] = useState(false);
   const [field, setField] = useState(["", "", "", "", "", "", "", "", ""]);
 
+  const reset = () => {
+    setCurrentPlayer("X");
+    setIsGameEnded(false);
+    setIsDraw(false);
+    setField(["", "", "", "", "", "", "", "", ""]);
+  };
+
   return (
     <main className={styles.container}>
       <Information
@@ -21,8 +28,12 @@ const Game = () => {
         setField={setField}
         currentPlayer={currentPlayer}
         setCurrentPlayer={setCurrentPlayer}
+        isGameEnded={isGameEnded}
+        setIsGameEnded={setIsGameEnded}
+        isDraw={isDraw}
+        setIsDraw={isDraw}
       />
-      <button>Начать сначала</button>
+      <button onClick={reset}>Начать сначала</button>
     </main>
   );
 };

@@ -1,6 +1,26 @@
 import styles from "./Field.module.css";
 
-const FieldLayout = ({ field, setField, currentPlayer, setCurrentPlayer }) => {
+const FieldLayout = ({
+  field,
+  setField,
+  currentPlayer,
+  setCurrentPlayer,
+  isGameEnded,
+  setIsGameEnded,
+  isDraw,
+  setIsDraw,
+}) => {
+  const WIN_PATTERNS = [
+    [0, 1, 2],
+    [3, 4, 5],
+    [6, 7, 8], // Варианты побед по горизонтали
+    [0, 3, 6],
+    [1, 4, 7],
+    [2, 5, 8], // Варианты побед по вертикали
+    [0, 4, 8],
+    [2, 4, 6], // Варианты побед по диагонали
+  ];
+
   const changeCurrentPlayer = () => {
     if (currentPlayer === "X") {
       setCurrentPlayer("O");
@@ -9,10 +29,24 @@ const FieldLayout = ({ field, setField, currentPlayer, setCurrentPlayer }) => {
     }
   };
 
+  const checkWinner = (board) => {
+    for (const pattern of WIN_PATTERNS) {
+      const [a, b, c] = pattern;
+      if (board[a] && board[a] === board[b] && board[a] === board[c]) {
+        console.log("Победил", board[a]);
+
+        return board[a];
+      }
+    }
+    return null;
+  };
+
   const setCell = (index) => {
+    if (isGameEnded) {
+      return;
+    }
     const newArray = field.map((elem, id) => {
       if (id === index && elem === "") {
-        changeCurrentPlayer();
         return currentPlayer;
       } else {
         return elem;
@@ -20,8 +54,15 @@ const FieldLayout = ({ field, setField, currentPlayer, setCurrentPlayer }) => {
     });
 
     setField(newArray);
-    console.log(currentPlayer);
+    const winner = checkWinner(newArray);
 
+    if (winner) {
+      setIsGameEnded(winner);
+    } else {
+      changeCurrentPlayer();
+    }
+
+    console.log(currentPlayer);
     console.log(newArray);
   };
 
