@@ -1,9 +1,6 @@
-import { useState } from "react";
 import styles from "./Field.module.css";
 
 const FieldLayout = ({ field, setField, currentPlayer, setCurrentPlayer }) => {
-  // const [newField, setNewField] = useState(field);
-
   const changeCurrentPlayer = () => {
     if (currentPlayer === "X") {
       setCurrentPlayer("O");
@@ -12,10 +9,19 @@ const FieldLayout = ({ field, setField, currentPlayer, setCurrentPlayer }) => {
     }
   };
 
-  const setCell = (cell, index) => {
+  const setCell = (index) => {
     const newArray = field.map((elem, id) => {
-      return id === index ? cell : elem;
+      if (id === index && elem === "") {
+        changeCurrentPlayer();
+        return currentPlayer;
+      } else {
+        return elem;
+      }
     });
+
+    setField(newArray);
+    console.log(currentPlayer);
+
     console.log(newArray);
   };
 
@@ -27,7 +33,7 @@ const FieldLayout = ({ field, setField, currentPlayer, setCurrentPlayer }) => {
             className={styles.cell}
             data-index={index}
             key={index}
-            onClick={() => setCell(cell, index)}
+            onClick={() => setCell(index)}
           >
             {cell}
           </div>
