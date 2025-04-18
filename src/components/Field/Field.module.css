@@ -1,23 +1,23 @@
 .board {
-	display: grid;
-	grid-template-columns: repeat(3, 100px); /* 3 колонки по 100 пикселей */
-	grid-template-rows: repeat(3, 100px); /* 3 строки по 100 пикселей */
-	gap: 5px; /* Промежутки между ячейками */
-	background-color: #333333; /* Цвет фона игрового поля */
-	padding: 10px;
-	border-radius: 10px;
-	box-shadow: 0 0 15px rgba(0, 0, 0, 0.5); /* Тень для игрового поля */
+  display: grid;
+  grid-template-columns: repeat(3, 100px); /* 3 колонки по 100 пикселей */
+  grid-template-rows: repeat(3, 100px); /* 3 строки по 100 пикселей */
+  gap: 5px; /* Промежутки между ячейками */
+  background-color: #333333; /* Цвет фона игрового поля */
+  padding: 10px;
+  border-radius: 10px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.5); /* Тень для игрового поля */
 }
 
 .cell {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	background-color: #444444; /* Цвет фона ячеек */
-	color: #ffffff; /* Цвет текста в ячейках */
-	font-size: 2em; /* Размер шрифта для крестиков и ноликов */
-	border: 2px solid #666666; /* Цвет границы ячеек */
-	border-radius: 5px;
-	cursor: pointer; /* Указатель при наведении */
-	transition: background-color 0.3s; /* Плавный переход цвета фона */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #444444; /* Цвет фона ячеек */
+  color: #ffffff; /* Цвет текста в ячейках */
+  font-size: 2em; /* Размер шрифта для крестиков и ноликов */
+  border: 2px solid #666666; /* Цвет границы ячеек */
+  border-radius: 5px;
+  cursor: pointer; /* Указатель при наведении */
+  transition: background-color 0.3s; /* Плавный переход цвета фона */
 }

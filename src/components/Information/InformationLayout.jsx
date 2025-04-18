@@ -5,8 +5,9 @@ const InformationLayout = ({ currentPlayer, isGameEnded, isDraw }) => {
     <div className={styles["header-info"]}>
       <h1>Крестики-нолики</h1>
       <h3>
-        Текущий ход:
-        {isGameEnded === false && isDraw === false ? " " + currentPlayer : ""}
+        {isGameEnded === false && isDraw === false
+          ? "Текущий ход: " + currentPlayer
+          : ""}
       </h3>
 
       {isGameEnded ? `Победа: ${currentPlayer}` : ""}

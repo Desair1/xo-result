@@ -30,8 +30,7 @@ const Game = () => {
         setCurrentPlayer={setCurrentPlayer}
         isGameEnded={isGameEnded}
         setIsGameEnded={setIsGameEnded}
-        isDraw={isDraw}
-        setIsDraw={isDraw}
+        setIsDraw={setIsDraw}
       />
       <button onClick={reset}>Начать сначала</button>
     </main>
