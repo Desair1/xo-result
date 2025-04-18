@@ -8,6 +8,7 @@ const FieldLayout = ({
   isGameEnded,
   setIsGameEnded,
   setIsDraw,
+  setWinner,
 }) => {
   const WIN_PATTERNS = [
     [0, 1, 2],
@@ -49,30 +50,33 @@ const FieldLayout = ({
     if (isGameEnded) {
       return;
     }
-    const newArray = field.map((elem, id) => {
-      if (id === index && elem === "") {
-        return currentPlayer;
+    // const newArray = field.map((elem, id) => {
+    //   if (id === index && elem === "") {
+    //     return currentPlayer;
+    //   } else {
+    //     return elem;
+    //   }
+    // });
+    if (field[index] === "") {
+      const newArray = [...field];
+      newArray[index] = currentPlayer;
+      setField(newArray);
+
+      const winner = checkWinner(newArray);
+      const draw = checkDraw(newArray);
+
+      if (winner) {
+        setWinner(winner);
+        setIsGameEnded(winner);
+      } else if (draw) {
+        setIsDraw(true);
+        setIsGameEnded(true);
       } else {
-        return elem;
+        changeCurrentPlayer();
       }
-    });
-
-    setField(newArray);
-
-    const winner = checkWinner(newArray);
-    const draw = checkDraw(newArray);
-
-    if (winner) {
-      setIsGameEnded(winner);
-    } else if (draw) {
-      setIsDraw(true);
-      setIsGameEnded(true);
     } else {
-      changeCurrentPlayer();
+      return;
     }
-
-    console.log(currentPlayer);
-    console.log(newArray);
   };
 
   return (

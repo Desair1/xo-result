@@ -1,17 +1,17 @@
 import styles from "./Information.module.css";
 
-const InformationLayout = ({ currentPlayer, isGameEnded, isDraw }) => {
+const InformationLayout = ({ currentPlayer, winner, isDraw }) => {
   return (
     <div className={styles["header-info"]}>
       <h1>Крестики-нолики</h1>
       <h3>
-        {isGameEnded === false && isDraw === false
+        {winner === null && isDraw === false
           ? "Текущий ход: " + currentPlayer
           : ""}
       </h3>
 
-      {isGameEnded ? `Победа: ${currentPlayer}` : ""}
-      {isDraw ? <div>Ничья!</div> : ""}
+      {winner ? `Победа: ${winner}` : null}
+      {isDraw ? <div>Ничья!</div> : null}
     </div>
   );
 };

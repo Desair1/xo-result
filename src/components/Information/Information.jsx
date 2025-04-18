@@ -1,10 +1,10 @@
 import InformationLayout from "./InformationLayout";
 
-function Information({ currentPlayer, isGameEnded, isDraw }) {
+function Information({ currentPlayer, winner, isDraw }) {
   return (
     <InformationLayout
       currentPlayer={currentPlayer}
-      isGameEnded={isGameEnded}
+      winner={winner}
       isDraw={isDraw}
     />
   );

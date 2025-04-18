@@ -7,8 +7,8 @@ function Field({
   setCurrentPlayer,
   isGameEnded,
   setIsGameEnded,
-  isDraw,
   setIsDraw,
+  setWinner,
 }) {
   return (
     <FieldLayout
@@ -18,8 +18,8 @@ function Field({
       setCurrentPlayer={setCurrentPlayer}
       isGameEnded={isGameEnded}
       setIsGameEnded={setIsGameEnded}
-      isDraw={isDraw}
       setIsDraw={setIsDraw}
+      setWinner={setWinner}
     />
   );
 }
