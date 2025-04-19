@@ -1,4 +1,5 @@
 import styles from "./Information.module.css";
+import PropTypes from "prop-types";
 
 const InformationLayout = ({ currentPlayer, winner, isDraw }) => {
   return (
@@ -14,6 +15,12 @@ const InformationLayout = ({ currentPlayer, winner, isDraw }) => {
       {isDraw ? <div>Ничья!</div> : null}
     </div>
   );
+};
+
+InformationLayout.propTypes = {
+  currentPlayer: PropTypes.string.isRequired,
+  winner: PropTypes.string, // Может быть null
+  isDraw: PropTypes.bool.isRequired,
 };
 
 export default InformationLayout;

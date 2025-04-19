@@ -1,4 +1,5 @@
 import styles from "./Field.module.css";
+import PropTypes from "prop-types";
 
 const FieldLayout = ({
   field,
@@ -67,7 +68,7 @@ const FieldLayout = ({
 
       if (winner) {
         setWinner(winner);
-        setIsGameEnded(winner);
+        setIsGameEnded(true);
       } else if (draw) {
         setIsDraw(true);
         setIsGameEnded(true);
@@ -95,6 +96,17 @@ const FieldLayout = ({
       </div>
     </>
   );
+};
+
+FieldLayout.propTypes = {
+  field: PropTypes.arrayOf(PropTypes.string).isRequired,
+  setField: PropTypes.func.isRequired,
+  currentPlayer: PropTypes.string.isRequired,
+  setCurrentPlayer: PropTypes.func.isRequired,
+  isGameEnded: PropTypes.bool.isRequired,
+  setIsGameEnded: PropTypes.func.isRequired,
+  isDraw: PropTypes.bool.isRequired,
+  setWinner: PropTypes.func.isRequired,
 };
 
 export default FieldLayout;
