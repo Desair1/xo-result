@@ -51,13 +51,6 @@ const FieldLayout = ({
     if (isGameEnded) {
       return;
     }
-    // const newArray = field.map((elem, id) => {
-    //   if (id === index && elem === "") {
-    //     return currentPlayer;
-    //   } else {
-    //     return elem;
-    //   }
-    // });
     if (field[index] === "") {
       const newArray = [...field];
       newArray[index] = currentPlayer;
