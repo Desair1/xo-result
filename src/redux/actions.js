@@ -1,4 +1,5 @@
 import { SET_PLAYER_O, SET_PLAYER_X } from "./actionsTypes/currentPlayerType";
+import { RESET_GAME, UPDATE_FIELD } from "./actionsTypes/fieldType";
 import { GAME_DRAW_FALSE, GAME_DRAW_TRUE } from "./actionsTypes/gameDrawType";
 import {
   GAME_ENDEND_FALSE,
@@ -40,4 +41,14 @@ export const setGameDrawTrue = (gameDraw) => {
 export const setGameDrawFalse = (gameDraw) => {
   type: GAME_DRAW_FALSE;
   payload: gameDraw;
+};
+
+export const updateField = (index, value) => {
+  type: UPDATE_FIELD;
+  payload: {
+    index, value;
+  }
+};
+export const resetField = () => {
+  type: RESET_GAME;
 };
