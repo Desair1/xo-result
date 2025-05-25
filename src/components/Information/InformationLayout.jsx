@@ -1,7 +1,27 @@
+import { useEffect } from "react";
+import { store } from "../../redux/store";
 import styles from "./Information.module.css";
-import PropTypes from "prop-types";
+import { useState } from "react";
 
-const InformationLayout = ({ currentPlayer, winner, isDraw }) => {
+const InformationLayout = () => {
+  const [currentPlayer, setCurrentPlayer] = useState(
+    store.getState().currentPlayer.currentPlayer
+  );
+  const [winner, setWinner] = useState(store.getState().winner.winner);
+  const [isDraw, setIsDraw] = useState(store.getState().gameDraw.isDraw);
+
+  useEffect(() => {
+    const unsubscribe = store.subscribe(() => {
+      setCurrentPlayer(store.getState().currentPlayer.currentPlayer);
+      setWinner(store.getState().winner.winner);
+      setIsDraw(store.getState().gameDraw.isDraw);
+    });
+
+    return () => {
+      unsubscribe();
+    };
+  }, []);
+
   return (
     <div className={styles["header-info"]}>
       <h1>Крестики-нолики</h1>
@@ -15,12 +35,6 @@ const InformationLayout = ({ currentPlayer, winner, isDraw }) => {
       {isDraw ? <div>Ничья!</div> : null}
     </div>
   );
-};
-
-InformationLayout.propTypes = {
-  currentPlayer: PropTypes.string.isRequired,
-  winner: PropTypes.string, // Может быть null
-  isDraw: PropTypes.bool.isRequired,
 };
 
 export default InformationLayout;

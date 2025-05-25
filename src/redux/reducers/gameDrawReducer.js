@@ -1,20 +1,15 @@
-import { GAME_DRAW_FALSE, GAME_DRAW_TRUE } from "../actionsTypes/gameDrawType";
+import { SET_GAME_DRAW } from "../actionsTypes/gameDrawType";
 
 const initialState = {
-  gameDraw: false,
+  isDraw: false,
 };
 
 export default function gameDrawReducer(state = initialState, action) {
   switch (action.type) {
-    case GAME_DRAW_TRUE:
+    case SET_GAME_DRAW:
       return {
         ...state,
-        gameDraw: action.payload,
-      };
-    case GAME_DRAW_FALSE:
-      return {
-        ...state,
-        gameDraw: action.payload,
+        isDraw: action.payload,
       };
     default:
       return state;

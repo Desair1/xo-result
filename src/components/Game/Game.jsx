@@ -1,40 +1,35 @@
-import { useState } from "react";
 import Field from "../Field/Field";
 import Information from "../Information/Information";
 import styles from "./Game.module.css";
+import { store } from "../../redux/store";
+import {
+  setFieldAction,
+  setCurrentPlayerAction,
+  setGameDrawAction,
+  setGameEndedAction,
+  setWinnerAction,
+} from "../../redux/actions";
+import { useEffect } from "react";
 
 const Game = () => {
-  const [winner, setWinner] = useState(null);
-  const [currentPlayer, setCurrentPlayer] = useState("X");
-  const [isGameEnded, setIsGameEnded] = useState(false);
-  const [isDraw, setIsDraw] = useState(false);
-  const [field, setField] = useState(["", "", "", "", "", "", "", "", ""]);
-
+  useEffect(() => {
+    const unsubscribe = store.subscribe(() => {
+      console.log("Redux Store updated:", store.getState());
+    });
+    return () => unsubscribe(); // Отписываемся при размонтировании
+  }, []);
   const reset = () => {
-    setWinner(null);
-    setIsGameEnded(false);
-    setIsDraw(false);
-    setField(["", "", "", "", "", "", "", "", ""]);
-    setCurrentPlayer("X");
+    store.dispatch(setWinnerAction(null));
+    store.dispatch(setGameEndedAction(false));
+    store.dispatch(setGameDrawAction(false));
+    store.dispatch(setFieldAction(["", "", "", "", "", "", "", "", ""]));
+    store.dispatch(setCurrentPlayerAction("X"));
   };
 
   return (
     <main className={styles.container}>
-      <Information
-        currentPlayer={currentPlayer}
-        winner={winner}
-        isDraw={isDraw}
-      />
-      <Field
-        field={field}
-        setField={setField}
-        currentPlayer={currentPlayer}
-        setCurrentPlayer={setCurrentPlayer}
-        isGameEnded={isGameEnded}
-        setIsGameEnded={setIsGameEnded}
-        setIsDraw={setIsDraw}
-        setWinner={setWinner}
-      />
+      <Information />
+      <Field />
       <button onClick={reset}>Начать сначала</button>
     </main>
   );

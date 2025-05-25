@@ -1,22 +1,22 @@
-import { RESET_GAME, UPDATE_FIELD } from "../actionsTypes/fieldType";
+import { SET_FIELD } from "../actionsTypes/fieldType";
 
 const initialState = {
-  field: Array(9).fill(""),
+  field: ["", "", "", "", "", "", "", "", ""],
 };
 
 export default function fieldReducer(state = initialState, action) {
   switch (action.type) {
-    case UPDATE_FIELD:
+    case SET_FIELD:
+      return {
+        ...state,
+        field: action.payload,
+      };
+    case "SET_CELL_VALUE":
       const newField = [...state.field];
-      newField[action.payload.index] = action.payload.value;
+      newField[action.payload.index] = action.payload.player;
       return {
         ...state,
         field: newField,
-      };
-    case RESET_GAME:
-      return {
-        ...state,
-        field: Array(9).fill(""),
       };
     default:
       return state;

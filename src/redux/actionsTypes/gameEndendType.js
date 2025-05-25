@@ -1,2 +1,1 @@
-export const GAME_ENDEND_TRUE = true;
-export const GAME_ENDEND_FALSE = false;
+export const SET_GAME_ENDED = "SET_GAME_ENDED";

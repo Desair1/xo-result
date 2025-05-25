@@ -1,2 +1,1 @@
-export const GAME_DRAW_TRUE = "GAME_DRAW_TRUE";
-export const GAME_DRAW_FALSE = "GAME_DRAW_FALSE";
+export const SET_GAME_DRAW = "SET_GAME_DRAW";

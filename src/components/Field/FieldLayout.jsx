@@ -1,16 +1,39 @@
 import styles from "./Field.module.css";
-import PropTypes from "prop-types";
+import { store } from "../../redux/store";
+import {
+  setCellValue,
+  setCurrentPlayerAction,
+  setGameDrawAction,
+  setGameEndedAction,
+  setWinnerAction,
+} from "../../redux/actions";
+import { useState, useEffect } from "react";
 
-const FieldLayout = ({
-  field,
-  setField,
-  currentPlayer,
-  setCurrentPlayer,
-  isGameEnded,
-  setIsGameEnded,
-  setIsDraw,
-  setWinner,
-}) => {
+const FieldLayout = () => {
+  const [field, setField] = useState(store.getState().field.field);
+  const [currentPlayer, setCurrentPlayer] = useState(
+    store.getState().currentPlayer.currentPlayer
+  );
+  const [isGameEnded, setIsGameEnded] = useState(
+    store.getState().gameEndend.isGameEnded
+  );
+  const [isDraw, setIsDraw] = useState(store.getState().gameDraw.isDraw);
+  const [winner, setWinner] = useState(store.getState().winner.winner);
+
+  useEffect(() => {
+    const unsubscribe = store.subscribe(() => {
+      setField(store.getState().field.field);
+      setCurrentPlayer(store.getState().currentPlayer.currentPlayer);
+      setIsGameEnded(store.getState().gameEndend.isGameEnded);
+      setIsDraw(store.getState().gameDraw.isDraw);
+      setWinner(store.getState().winner.winner);
+    });
+
+    return () => {
+      unsubscribe();
+    };
+  }, []);
+
   const WIN_PATTERNS = [
     [0, 1, 2],
     [3, 4, 5],
@@ -23,11 +46,7 @@ const FieldLayout = ({
   ];
 
   const changeCurrentPlayer = () => {
-    if (currentPlayer === "X") {
-      setCurrentPlayer("O");
-    } else if (currentPlayer === "O") {
-      setCurrentPlayer("X");
-    }
+    store.dispatch(setCurrentPlayerAction(currentPlayer === "X" ? "O" : "X"));
   };
 
   const checkWinner = (board) => {
@@ -35,7 +54,6 @@ const FieldLayout = ({
       const [a, b, c] = pattern;
       if (board[a] && board[a] === board[b] && board[a] === board[c]) {
         console.log("Победил", board[a]);
-
         return board[a];
       }
     }
@@ -52,19 +70,20 @@ const FieldLayout = ({
       return;
     }
     if (field[index] === "") {
-      const newArray = [...field];
-      newArray[index] = currentPlayer;
-      setField(newArray);
+      store.dispatch(setCellValue(index, currentPlayer));
 
-      const winner = checkWinner(newArray);
-      const draw = checkDraw(newArray);
+      // Получаем актуальное поле ИЗ STORE, чтобы checkWinner работал правильно
+      const newField = store.getState().field.field;
+      const winner = checkWinner(newField);
+
+      const draw = checkDraw(newField);
 
       if (winner) {
-        setWinner(winner);
-        setIsGameEnded(true);
+        store.dispatch(setWinnerAction(winner));
+        store.dispatch(setGameEndedAction(true));
       } else if (draw) {
-        setIsDraw(true);
-        setIsGameEnded(true);
+        store.dispatch(setGameDrawAction(true));
+        store.dispatch(setGameEndedAction(true));
       } else {
         changeCurrentPlayer();
       }
@@ -89,17 +108,6 @@ const FieldLayout = ({
       </div>
     </>
   );
-};
-
-FieldLayout.propTypes = {
-  field: PropTypes.arrayOf(PropTypes.string).isRequired,
-  setField: PropTypes.func.isRequired,
-  currentPlayer: PropTypes.string.isRequired,
-  setCurrentPlayer: PropTypes.func.isRequired,
-  isGameEnded: PropTypes.bool.isRequired,
-  setIsGameEnded: PropTypes.func.isRequired,
-  isDraw: PropTypes.bool.isRequired,
-  setWinner: PropTypes.func.isRequired,
 };
 
 export default FieldLayout;

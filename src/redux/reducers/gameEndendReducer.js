@@ -1,23 +1,17 @@
-import {
-  GAME_ENDEND_FALSE,
-  GAME_ENDEND_TRUE,
-} from "../actionsTypes/gameEndendType";
+import { SET_GAME_ENDED } from "../actionsTypes/gameEndendType";
 
 const initialState = {
-  gameEndend: false,
+  isGameEnded: false,
 };
 
 export default function gameEndendReducer(state = initialState, action) {
   switch (action.type) {
-    case GAME_ENDEND_TRUE:
+    case SET_GAME_ENDED:
       return {
         ...state,
-        gameEndend: action.payload,
+        isGameEnded: action.payload,
       };
-    case GAME_ENDEND_FALSE:
-      return {
-        ...state,
-        gameEndend: action.payload,
-      };
+    default:
+      return state;
   }
 }
